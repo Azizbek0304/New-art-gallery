@@ -6,7 +6,6 @@ import About from './pages/About';
 import Services from './pages/Service';
 import Testimonial from './pages/Testimonial';
 import Contact from './pages/Contact';
-import './style.css';
 
 export default function App() {
   return (
