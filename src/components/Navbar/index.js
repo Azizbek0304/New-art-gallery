@@ -1,41 +1,60 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './navbar.css';
 import { NavLink } from 'react-router-dom';
+import $ from 'jquery';
 
 const Navbar = () => {
-  const [activeNavItem, setActiveNavItem] = useState(null);
+  function animation() {
+    var tabsNewAnim = $('#navbarSupportedContent');
+    var activeItemNewAnim = tabsNewAnim.find('.active');
+    var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+    var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+    var itemPosNewAnimTop = activeItemNewAnim.position();
+    var itemPosNewAnimLeft = activeItemNewAnim.position();
+    $('.hori-selector').css({
+      top: itemPosNewAnimTop.top + 'px',
+      left: itemPosNewAnimLeft.left + 'px',
+      height: activeWidthNewAnimHeight + 'px',
+      width: activeWidthNewAnimWidth + 'px',
+    });
+    $('#navbarSupportedContent').on('click', 'li', function (e) {
+      $('#navbarSupportedContent ul li').removeClass('active');
+      $(this).addClass('active');
+      var activeWidthNewAnimHeight = $(this).innerHeight();
+      var activeWidthNewAnimWidth = $(this).innerWidth();
+      var itemPosNewAnimTop = $(this).position();
+      var itemPosNewAnimLeft = $(this).position();
+      $('.hori-selector').css({
+        top: itemPosNewAnimTop.top + 'px',
+        left: itemPosNewAnimLeft.left + 'px',
+        height: activeWidthNewAnimHeight + 'px',
+        width: activeWidthNewAnimWidth + 'px',
+      });
+    });
+  }
 
   useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    animation();
+    $(window).on('resize', function () {
+      setTimeout(function () {
+        animation();
+      }, 500);
+    });
   }, []);
-
-  const handleResize = () => {
-    if (activeNavItem) {
-      const horiSelector = document.querySelector('.hori-selector');
-      horiSelector.style.top = activeNavItem.offsetTop + 'px';
-      horiSelector.style.left = activeNavItem.offsetLeft + 'px';
-      horiSelector.style.height = activeNavItem.offsetHeight + 'px';
-      horiSelector.style.width = activeNavItem.offsetWidth + 'px';
-    }
-  };
-
-  const handleNavItemClick = (event) => {
-    const selectedNavItem = event.target.closest('.nav-item');
-    setActiveNavItem(selectedNavItem);
-    handleResize();
-  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-mainbg">
-      <a className="navbar-brand navbar-logo" href="/">
+      <NavLink className="navbar-brand navbar-logo" to="/" exact>
         Web Solutions
-      </a>
+      </NavLink>
 
       <button
         className="navbar-toggler"
-        onClick={handleResize}
+        onClick={function () {
+          setTimeout(function () {
+            animation();
+          });
+        }}
         type="button"
         data-toggle="collapse"
         data-target="#navbarSupportedContent"
@@ -48,74 +67,41 @@ const Navbar = () => {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
-          <div className="hori-selector"></div>
+          <div className="hori-selector">
+            <div className="left"></div>
+            <div className="right"></div>
+          </div>
 
-          <li
-            className={`nav-item ${activeNavItem === 'Home' ? 'active' : ''}`}
-          >
-            <a className="nav-link" href="/" onClick={handleNavItemClick}>
+          <li className="nav-item active">
+            <NavLink className="nav-link" to="/" exact>
               <i className="fas fa-tachometer-alt"></i>Home
-            </a>
+            </NavLink>
           </li>
 
-          <li
-            className={`nav-item ${activeNavItem === 'About' ? 'active' : ''}`}
-          >
-            <a
-              className="nav-link"
-              href="/about"
-              exact
-              onClick={handleNavItemClick}
-            >
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/about" exact>
               <i className="far fa-address-book"></i>About
-            </a>
+            </NavLink>
           </li>
 
-          <li
-            className={`nav-item ${
-              activeNavItem === 'Services' ? 'active' : ''
-            }`}
-          >
-            <a
-              className="nav-link"
-              href="/service"
-              onClick={handleNavItemClick}
-            >
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/service" exact>
               <i className="far fa-clone"></i>Services
-            </a>
+            </NavLink>
           </li>
-
-          <li
-            className={`nav-item ${
-              activeNavItem === 'Testimonial' ? 'active' : ''
-            }`}
-          >
-            <a
-              className="nav-link"
-              href="/testimonial"
-              onClick={handleNavItemClick}
-            >
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/testimonial" exact>
               <i className="far fa-chart-bar"></i>Testimonial
-            </a>
+            </NavLink>
           </li>
-
-          <li
-            className={`nav-item ${
-              activeNavItem === 'Contact Us' ? 'active' : ''
-            }`}
-          >
-            <a
-              className="nav-link"
-              href="/contact"
-              onClick={handleNavItemClick}
-            >
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/contact" exact>
               <i className="far fa-copy"></i>Contact Us
-            </a>
+            </NavLink>
           </li>
         </ul>
       </div>
     </nav>
   );
 };
-
 export default Navbar;

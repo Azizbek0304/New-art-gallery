@@ -12,11 +12,11 @@ export default function App() {
     <div>
       <Navbar />
       <Routes>
-        <Route path="/" exact component={Home} />
-        <Route path="/about" exact component={About} />
-        <Route path="/service" exact component={Services} />
-        <Route path="/testimonial" exact component={Testimonial} />
-        <Route path="/contact" exact component={Contact} />
+        <Route path="/" exact component={<Home />} />
+        <Route path="/about" exact component={<About />} />
+        <Route path="/service" exact component={<Services />} />
+        <Route path="/testimonial" exact component={<Testimonial />} />
+        <Route path="/contact" exact component={<Contact />} />
       </Routes>
     </div>
   );
