@@ -1,24 +1,49 @@
-// reducer.js
 const initialState = {
-  // Define your initial state here
-  // For example:
-  counter: 0,
+  users: [],
+  currentUser: null,
+  isAuthenticated: false,
 };
 
-const reducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    // Define your actions and their corresponding state updates here
-    // For example, to handle an action that increments the counter:
-    case 'INCREMENT_COUNTER':
+    case 'SIGN_UP':
+      // Implement your sign-up logic here to update the state with the new user data
+      const newUser = action.payload;
       return {
         ...state,
-        counter: state.counter + 1,
+        users: [...state.users, newUser],
+        currentUser: newUser,
+        isAuthenticated: true,
       };
-    // Add more cases for other actions if needed
+
+    case 'SIGN_IN':
+      // Implement your sign-in logic here to check if the user exists and handle authentication
+      const { email, password } = action.payload;
+      const user = state.users.find(
+        (u) => u.email === email && u.password === password
+      );
+
+      if (user) {
+        return {
+          ...state,
+          currentUser: user,
+          isAuthenticated: true,
+        };
+      } else {
+        return state; // If authentication fails, keep the state as is
+      }
+
+    case 'SIGN_OUT':
+      // Implement your sign-out logic here to clear the current user and authentication status
+      return {
+        ...state,
+        currentUser: null,
+        isAuthenticated: false,
+      };
 
     default:
       return state;
   }
 };
 
-export default reducer;
+export default userReducer;
