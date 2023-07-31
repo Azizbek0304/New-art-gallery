@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { login } from '../actions/userActions';
-import './login.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,45 +10,46 @@ const Login = () => {
   });
 
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.user.error);
+  const history = useHistory();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(signup(formData));
-    e;
-    console.log(formData);
+    // Call the login action to authenticate the user with Firebase
+    dispatch(login(formData));
+    // Redirect to the dashboard after successful login
+    history.push('/dashboard');
   };
 
   return (
-    <div className="container">
+    <div>
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+      <form onSubmit={handleLogin}>
+        <label>
+          Email:
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </label>
         <button type="submit">Login</button>
-        {error && <p>{error}</p>}
       </form>
     </div>
   );
