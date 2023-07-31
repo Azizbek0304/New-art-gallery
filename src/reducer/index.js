@@ -1,49 +1,44 @@
+import {
+  USER_SIGNUP_REQUEST,
+  USER_SIGNUP_SUCCESS,
+  USER_SIGNUP_FAIL,
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAIL,
+} from '../actions/userActions';
+
+// Initial state
 const initialState = {
-  users: [],
-  currentUser: null,
-  isAuthenticated: false,
+  user: null,
+  error: null,
+  loading: false,
 };
 
-const userReducer = (state = initialState, action) => {
+// User Reducer
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SIGN_UP':
-      // Implement your sign-up logic here to update the state with the new user data
-      const newUser = action.payload;
+    case USER_SIGNUP_REQUEST:
+    case USER_LOGIN_REQUEST:
       return {
         ...state,
-        users: [...state.users, newUser],
-        currentUser: newUser,
-        isAuthenticated: true,
+        loading: true,
       };
-
-    case 'SIGN_IN':
-      // Implement your sign-in logic here to check if the user exists and handle authentication
-      const { email, password } = action.payload;
-      const user = state.users.find(
-        (u) => u.email === email && u.password === password
-      );
-
-      if (user) {
-        return {
-          ...state,
-          currentUser: user,
-          isAuthenticated: true,
-        };
-      } else {
-        return state; // If authentication fails, keep the state as is
-      }
-
-    case 'SIGN_OUT':
-      // Implement your sign-out logic here to clear the current user and authentication status
+    case USER_SIGNUP_SUCCESS:
+    case USER_LOGIN_SUCCESS:
       return {
         ...state,
-        currentUser: null,
-        isAuthenticated: false,
+        loading: false,
+        user: action.payload,
+        error: null,
       };
-
+    case USER_SIGNUP_FAIL:
+    case USER_LOGIN_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
 };
-
-export default userReducer;

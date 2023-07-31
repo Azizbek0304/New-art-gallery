@@ -1,45 +1,59 @@
-// userActions.js
+import axios from 'axios';
 
-// Action Typesexport
-export const SIGN_UP_AUTHOR = 'SIGN_UP_AUTHOR';
-export const SIGN_UP_SIMPLE = 'SIGN_UP_SIMPLE';
-export const SIGN_IN = 'SIGN_IN';
-export const SIGN_OUT = 'SIGN_OUT';
+// Action Types
+export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST';
+export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';
+export const USER_SIGNUP_FAIL = 'USER_SIGNUP_FAIL';
+export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
+export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
 
-// Action Creators
-export const signUpAuthor = (username, email, password) => {
-  return {
-    type: SIGN_UP_AUTHOR,
-    payload: {
-      userType: 'author',
-      username,
-      email,
-      password,
-    },
-  };
+// Signup Action
+export const signup = (formData) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_SIGNUP_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axios.post('/api/signup', formData, config);
+
+    dispatch({ type: USER_SIGNUP_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_SIGNUP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
 };
 
-export const signUpSimple = (username, email, password) => {
-  return {
-    type: SIGN_UP_SIMPLE,
-    payload: {
-      userType: 'simple',
-      username,
-      email,
-      password,
-    },
-  };
-};
+// Login Action
+export const login = (formData) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_LOGIN_REQUEST });
 
-export const signInAction = (email, password) => {
-  return {
-    type: SIGN_IN,
-    payload: { email, password },
-  };
-};
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-export const signOutAction = () => {
-  return {
-    type: SIGN_OUT,
-  };
+    const { data } = await axios.post('/api/login', formData, config);
+
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_LOGIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
 };
