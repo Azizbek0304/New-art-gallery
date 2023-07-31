@@ -1,15 +1,33 @@
 // userActions.js
 
-// Action Types
-export const SIGN_UP = 'SIGN_UP';
+// Action Typesexport
+export const SIGN_UP_AUTHOR = 'SIGN_UP_AUTHOR';
+export const SIGN_UP_SIMPLE = 'SIGN_UP_SIMPLE';
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
 
 // Action Creators
-export const signUpAction = (user) => {
+export const signUpAuthor = (username, email, password) => {
   return {
-    type: SIGN_UP,
-    payload: user,
+    type: SIGN_UP_AUTHOR,
+    payload: {
+      userType: 'author',
+      username,
+      email,
+      password,
+    },
+  };
+};
+
+export const signUpSimple = (username, email, password) => {
+  return {
+    type: SIGN_UP_SIMPLE,
+    payload: {
+      userType: 'simple',
+      username,
+      email,
+      password,
+    },
   };
 };
 

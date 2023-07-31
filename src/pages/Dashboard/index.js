@@ -2,7 +2,10 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import UploadComponent from '../../components/UploadComp';
 import { logout } from '../userActions';
+
+import './dashboard.css';
 
 const Dashboard = () => {
   const user = useSelector((state) => state.user);
@@ -19,15 +22,15 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>Welcome, {user.name}!</h1>
-      <p>Email: {user.email}</p>
-      {/* Display other profile information here */}
-      <button onClick={handleLogout}>Logout</button>
-      <div>
-        <h2>Upload Profile Picture</h2>
-        <input type="file" onChange={handleFileUpload} />
-        {/* Add other upload fields here */}
-      </div>
+      <h2>Welcome to Your Dashboard, {user.name}!</h2>
+      {user.isAuthor && (
+        // Show upload section only if the user is an Author
+        <div>
+          <h3>Upload Section</h3>
+          <UploadComponent />
+        </div>
+      )}
+      <button>Logout</button>
     </div>
   );
 };

@@ -1,44 +1,68 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { signUpAction } from '../actions/userActions'; // Import the sign-up action
+import { useDispatch, useSelector } from 'react-redux';
+import { signup } from '../../actions/userActions';
+import './signup.css';
 
 const SignUp = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    role: 'simple', // Default role is 'user'
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const dispatch = useDispatch();
-
-  const handleSignUp = () => {
-    // Dispatch the sign-up action with the form data
-    dispatch(signUpAction({ username, email, password }));
+  const error = useSelector((state) => state.user.error);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(signup(formData));
+    console.log(formData);
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Sign Up</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
+        <label>Username</label>
         <input
           type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          required
         />
+        <label>Email</label>
         <input
           type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
         />
+        <label>Password</label>
         <input
           type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
         />
-        <button type="button" onClick={handleSignUp}>
-          Sign Up
-        </button>
+        {/* If you have a role selector, uncomment this */}
+        <label>Role</label>
+        <select name="role" value={formData.role} onChange={handleChange}>
+          <option value="user">User</option>
+          <option value="author">Author</option>
+        </select>
+        <button type="submit">Sign Up</button>
+        {error && <p>{error}</p>}
       </form>
     </div>
   );
