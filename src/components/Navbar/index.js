@@ -1,7 +1,18 @@
 import React, { useEffect } from 'react';
 import './navbar.css';
-import { NavLink } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import $ from 'jquery';
+
+const links = [
+  { to: '/', text: 'Bosh Sahifa', icon: 'fas fa-tachometer-alt' },
+  { to: '/about', text: 'Biz Haqimizda', icon: 'far fa-address-book' },
+  { to: '/digitaldesign', text: 'Raqamli Dizayn', icon: 'far fa-clone' },
+  { to: '/photo', text: 'Fotosurat', icon: 'far fa-chart-bar' },
+  { to: '/branding', text: 'Brending', icon: 'far fa-copy' },
+  { to: '/drawings', text: "Qo'lda Chizilgan rasmlar", icon: 'far fa-copy' },
+  { to: '/rating', text: 'Reyting', icon: 'far fa-copy' },
+  { to: '/contact', text: "Bog'lanish", icon: 'far fa-copy' },
+];
 
 const Navbar = () => {
   function animation() {
@@ -43,80 +54,50 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-mainbg">
-      <NavLink className="navbar-brand navbar-logo" to="/" exact>
-        Web Solutions
-      </NavLink>
+    <>
+      <nav className="navbar navbar-expand-lg navbar-mainbg">
+        <Link className="navbar-brand navbar-logo" to="/" exact>
+          Web Solutions
+        </Link>
 
-      <button
-        className="navbar-toggler"
-        onClick={function () {
-          setTimeout(function () {
-            animation();
-          });
-        }}
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i className="fas fa-bars text-white"></i>
-      </button>
+        <button
+          className="navbar-toggler"
+          onClick={function () {
+            setTimeout(function () {
+              animation();
+            });
+          }}
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i className="fas fa-bars text-white"></i>
+        </button>
 
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul className="navbar-nav ml-auto">
-          <div className="hori-selector">
-            <div className="left"></div>
-            <div className="right"></div>
-          </div>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ml-auto">
+            <div className="hori-selector">
+              <div className="left"></div>
+              <div className="right"></div>
+            </div>
 
-          <li className="nav-item active">
-            <NavLink className="nav-link" to="/" exact>
-              <i className="fas fa-tachometer-alt"></i>Bosh Sahifa
-            </NavLink>
-          </li>
-
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/about" exact>
-              <i className="far fa-address-book"></i>Biz Haqimizda
-            </NavLink>
-          </li>
-
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/digitaldesign" exact>
-              <i className="far fa-clone"></i>Raqamli Dizayn
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/photo" exact>
-              <i className="far fa-chart-bar"></i>Fotosurat
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/branding" exact>
-              <i className="far fa-copy"></i>Brending
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/drawings" exact>
-              <i className="far fa-copy"></i>Qo'lda Chizilgan rasmlar
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/rating" exact>
-              <i className="far fa-copy"></i>Reyting
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/contact" exact>
-              <i className="far fa-copy"></i>Bog'lanish
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-    </nav>
+            {links.map((link) => (
+              <li key={link.to} className="nav-item">
+                <Link className="nav-link" to={link.to} exact>
+                  <i className={link.icon}></i>
+                  {link.text}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+      <Outlet />
+    </>
   );
 };
+
 export default Navbar;
