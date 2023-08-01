@@ -74,29 +74,44 @@ const Navbar = () => {
 
           <li className="nav-item active">
             <NavLink className="nav-link" to="/" exact>
-              <i className="fas fa-tachometer-alt"></i>Home
+              <i className="fas fa-tachometer-alt"></i>Bosh Sahifa
             </NavLink>
           </li>
 
           <li className="nav-item">
             <NavLink className="nav-link" to="/about" exact>
-              <i className="far fa-address-book"></i>About
+              <i className="far fa-address-book"></i>Biz Haqimizda
             </NavLink>
           </li>
 
           <li className="nav-item">
-            <NavLink className="nav-link" to="/service" exact>
-              <i className="far fa-clone"></i>Services
+            <NavLink className="nav-link" to="/digitaldesign" exact>
+              <i className="far fa-clone"></i>Raqamli Dizayn
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/testimonial" exact>
-              <i className="far fa-chart-bar"></i>Testimonial
+            <NavLink className="nav-link" to="/photo" exact>
+              <i className="far fa-chart-bar"></i>Fotosurat
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/branding" exact>
+              <i className="far fa-copy"></i>Brending
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/drawings" exact>
+              <i className="far fa-copy"></i>Qo'lda Chizilgan rasmlar
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/rating" exact>
+              <i className="far fa-copy"></i>Reyting
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/contact" exact>
-              <i className="far fa-copy"></i>Contact Us
+              <i className="far fa-copy"></i>Bog'lanish
             </NavLink>
           </li>
         </ul>
