@@ -1,11 +1,11 @@
 import React from 'react';
-const Contact = () => {
+const Drawings = () => {
   return (
     <div className="container">
       <h1 className="text-center" style={{ paddingTop: '30%' }}>
-        Bog'lanish
+        Qo'lda chizilgan rasmlar
       </h1>
     </div>
   );
 };
-export default Contact;
+export default Drawings;

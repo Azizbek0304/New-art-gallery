@@ -1,11 +1,12 @@
 import React from 'react';
-const Contact = () => {
+
+const Rating = () => {
   return (
     <div className="container">
       <h1 className="text-center" style={{ paddingTop: '30%' }}>
-        Bog'lanish
+        Reyting
       </h1>
     </div>
   );
 };
-export default Contact;
+export default Rating;

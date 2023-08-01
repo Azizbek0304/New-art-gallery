@@ -1,11 +1,11 @@
 import React from 'react';
-const Contact = () => {
+const Branding = () => {
   return (
     <div className="container">
       <h1 className="text-center" style={{ paddingTop: '30%' }}>
-        Bog'lanish
+        Brending
       </h1>
     </div>
   );
 };
-export default Contact;
+export default Branding;

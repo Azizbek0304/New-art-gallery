@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
-import Services from './pages/Service';
-import Testimonial from './pages/Testimonial';
+import DigitalDesign from './pages/DigitalDesign';
+import PhotoPage from './pages/PhotoPage';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard'; // Add the Dashboard component import
 
@@ -20,8 +20,11 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/service" element={<Services />} />
-        <Route path="/testimonial" element={<Testimonial />} />
+        <Route path="/digitaldesign" element={<DigitalDesign />} />
+        <Route path="/photo" element={<PhotoPage />} />
+        <Route path="/branding" element={<Branding />} />
+        <Route path="/drawings" element={<Drawings />} />
+        <Route path="/rating" element={<Rating />} />
         <Route path="/contact" element={<Contact />} />
         {/* {user ? <Route path="/dashboard" element={<Dashboard />} /> : null} */}
       </Routes>
