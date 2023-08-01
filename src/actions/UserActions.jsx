@@ -8,9 +8,9 @@ export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
 export const USER_LOGOUT = 'USER_LOGOUT';
-export const UPLOAD_FILE_REQUEST = 'UPLOAD_FILE_REQUEST';
-export const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS';
-export const UPLOAD_FILE_FAIL = 'UPLOAD_FILE_FAIL';
+export const USER_UPLOAD_REQUEST = 'USER_UPLOAD_REQUEST';
+export const USER_UPLOAD_SUCCESS = 'USER_UPLOAD_SUCCESS';
+export const USER_UPLOAD_FAIL = 'USER_UPLOAD_FAIL';
 
 // Signup Action
 export const signup = (formData) => async (dispatch) => {
@@ -23,7 +23,6 @@ export const signup = (formData) => async (dispatch) => {
       },
     };
 
-    // Replace '/api/signup' with your actual signup endpoint
     const { data } = await axios.post('/api/signup', formData, config);
 
     dispatch({ type: USER_SIGNUP_SUCCESS, payload: data });
@@ -49,7 +48,6 @@ export const login = (formData) => async (dispatch) => {
       },
     };
 
-    // Replace '/api/login' with your actual login endpoint
     const { data } = await axios.post('/api/login', formData, config);
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
@@ -66,32 +64,35 @@ export const login = (formData) => async (dispatch) => {
 
 // Logout Action
 export const logout = () => (dispatch) => {
-  // Add code to handle logout on the server if needed
   dispatch({ type: USER_LOGOUT });
 };
 
 // Upload Action
-export const uploadFile = (formData) => async (dispatch) => {
+export const upload = (file) => async (dispatch, getState) => {
   try {
-    dispatch({ type: UPLOAD_FILE_REQUEST });
+    dispatch({ type: USER_UPLOAD_REQUEST });
 
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    };
+    // Get the current user from the state
+    const { user } = getState().user;
 
-    // Replace '/api/upload' with your actual upload endpoint
-    const { data } = await axios.post('/api/upload', formData, config);
+    // Perform the upload logic here (e.g., upload the file to Firebase Storage)
+    // Replace the following line with your actual upload logic
 
-    dispatch({ type: UPLOAD_FILE_SUCCESS, payload: data });
+    // Simulating a delay with setTimeout to demonstrate async action
+    setTimeout(() => {
+      // After successful upload, update the user data in the Firestore database using the provided API endpoint
+      // Note: You may need to modify the API endpoint based on your backend setup
+      axios.post('/api/upload', {
+        uid: user.uid,
+        fileUrl: 'https://example.com/uploaded-file.jpg', // Replace with the actual URL of the uploaded file
+      });
+
+      dispatch({ type: USER_UPLOAD_SUCCESS });
+    }, 2000); // Simulating a 2-second delay for demonstration purposes
   } catch (error) {
     dispatch({
-      type: UPLOAD_FILE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      type: USER_UPLOAD_FAIL,
+      payload: error.message,
     });
   }
 };
