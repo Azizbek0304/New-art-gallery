@@ -9,6 +9,9 @@ import About from './pages/About';
 import DigitalDesign from './pages/DigitalDesign';
 import PhotoPage from './pages/PhotoPage';
 import Contact from './pages/Contact';
+import Branding from './pages/Branding';
+import Drawings from './pages/Drawings';
+import Rating from './pages/Rating';
 import Dashboard from './pages/Dashboard'; // Add the Dashboard component import
 
 export default function App() {
