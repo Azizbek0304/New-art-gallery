@@ -17,14 +17,14 @@ export default function App() {
   return (
     <div>
       <Navbar />
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/service" element={<Services />} />
         <Route path="/testimonial" element={<Testimonial />} />
         <Route path="/contact" element={<Contact />} />
-        {user ? <Route path="/dashboard" element={<Dashboard />} /> : null}
-      </Routes> */}
+        {/* {user ? <Route path="/dashboard" element={<Dashboard />} /> : null} */}
+      </Routes>
     </div>
   );
 }
