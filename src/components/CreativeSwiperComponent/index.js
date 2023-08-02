@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Swiper from 'swiper';
-import 'swiper/css/swiper.min.css';
+import 'swiper/css';
 import './swipercomponent.scss'; // Create a CSS file to add styles for the component
 
 const CreativeSwiperComponent = () => {
