@@ -1,11 +1,10 @@
 import React from 'react';
+import CreativeSwiperComponent from '../../components/CreativeSwiperComponent'
 
 const Home = () => {
   return (
     <div className="container">
-      <h1 className="text-center" style={{ paddingTop: '30%' }}>
-        Home
-      </h1>
+      <CreativeSwiperComponent />
     </div>
   );
 };
