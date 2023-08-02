@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -15,7 +15,7 @@ import Rating from './pages/Rating';
 // import Dashboard from './pages/Dashboard'; // Add the Dashboard component import
 
 export default function App() {
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
 
   return (
     <div>
