@@ -12,7 +12,7 @@ import Contact from './pages/Contact';
 import Branding from './pages/Branding';
 import Drawings from './pages/Drawings';
 import Rating from './pages/Rating';
-import Dashboard from './pages/Dashboard'; // Add the Dashboard component import
+// import Dashboard from './pages/Dashboard'; // Add the Dashboard component import
 
 export default function App() {
   const user = useSelector((state) => state.user);

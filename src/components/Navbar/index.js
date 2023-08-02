@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './navbar.css';
-import { Outlet, Link } from 'react-router-dom';
-import $ from 'jquery';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const links = [
   { to: '/', text: 'Bosh Sahifa', icon: 'fas fa-tachometer-alt' },
@@ -15,78 +16,52 @@ const links = [
 ];
 
 const Navbar = () => {
-  function animation() {
-    var tabsNewAnim = $('#navbarSupportedContent');
-    var activeItemNewAnim = tabsNewAnim.find('.active');
-    var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
-    var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
-    var itemPosNewAnimTop = activeItemNewAnim.position();
-    var itemPosNewAnimLeft = activeItemNewAnim.position();
-    $('.hori-selector').css({
-      top: itemPosNewAnimTop.top + 'px',
-      left: itemPosNewAnimLeft.left + 'px',
-      height: activeWidthNewAnimHeight + 'px',
-      width: activeWidthNewAnimWidth + 'px',
-    });
-    $('#navbarSupportedContent').on('click', 'li', function (e) {
-      $('#navbarSupportedContent ul li').removeClass('active');
-      $(this).addClass('active');
-      var activeWidthNewAnimHeight = $(this).innerHeight();
-      var activeWidthNewAnimWidth = $(this).innerWidth();
-      var itemPosNewAnimTop = $(this).position();
-      var itemPosNewAnimLeft = $(this).position();
-      $('.hori-selector').css({
-        top: itemPosNewAnimTop.top + 'px',
-        left: itemPosNewAnimLeft.left + 'px',
-        height: activeWidthNewAnimHeight + 'px',
-        width: activeWidthNewAnimWidth + 'px',
-      });
-    });
-  }
+  const location = useLocation();
 
   useEffect(() => {
-    animation();
-    $(window).on('resize', function () {
-      setTimeout(function () {
-        animation();
-      }, 500);
-    });
-  }, []);
+    updateActiveTabStyle();
+  }, [location]);
+
+  function updateActiveTabStyle() {
+    var tabsNewAnim = document.getElementById('navbarSupportedContent');
+    var selectorNewAnim = tabsNewAnim.getElementsByTagName('li').length;
+    var activeItemNewAnim = tabsNewAnim.querySelector('.active');
+    var activeWidthNewAnimHeight = activeItemNewAnim.clientHeight;
+    var activeWidthNewAnimWidth = activeItemNewAnim.clientWidth;
+    var itemPosNewAnimTop = activeItemNewAnim.offsetTop;
+    var itemPosNewAnimLeft = activeItemNewAnim.offsetLeft;
+    var horiSelector = document.querySelector('.hori-selector');
+
+    horiSelector.style.top = itemPosNewAnimTop + 'px';
+    horiSelector.style.left = itemPosNewAnimLeft + 'px';
+    horiSelector.style.height = activeWidthNewAnimHeight + 'px';
+    horiSelector.style.width = activeWidthNewAnimWidth + 'px';
+  }
 
   return (
-    <>
-      <nav className="navbar navbar-expand-lg navbar-mainbg">
-        <Link className="navbar-brand navbar-logo" to="/" exact>
-          Web Solutions
+      <nav className="navbar navbar-expand-custom navbar-mainbg">
+        <Link className="navbar-brand navbar-logo" to="/">
+          Raqamli Gallereya
         </Link>
-
         <button
           className="navbar-toggler"
-          onClick={function () {
-            setTimeout(function () {
-              animation();
-            });
-          }}
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          onClick={updateActiveTabStyle}
         >
           <i className="fas fa-bars text-white"></i>
         </button>
-
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
             <div className="hori-selector">
               <div className="left"></div>
               <div className="right"></div>
             </div>
-
             {links.map((link) => (
-              <li key={link.to} className="nav-item">
-                <Link className="nav-link" to={link.to} exact>
+              <li key={link.to} className={`nav-item ${location.pathname === link.to ? 'active' : ''}`}>
+                <Link className="nav-link" to={link.to}>
                   <i className={link.icon}></i>
                   {link.text}
                 </Link>
@@ -95,8 +70,6 @@ const Navbar = () => {
           </ul>
         </div>
       </nav>
-      <Outlet />
-    </>
   );
 };
 

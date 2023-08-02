@@ -9,7 +9,7 @@ import {
   USER_UPLOAD_REQUEST,
   USER_UPLOAD_SUCCESS,
   USER_UPLOAD_FAIL,
-} from '../actions/userActions';
+} from '../actions/UserActions';
 
 // Initial state
 const initialState = {
