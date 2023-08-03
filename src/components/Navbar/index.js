@@ -37,37 +37,44 @@ const Navbar = () => {
   }
 
   return (
-      <nav className="navbar navbar-expand-custom navbar-mainbg">
-        <Link className="navbar-brand navbar-logo" to="/">
-          Raqamli Gallereya
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          onClick={updateActiveTabStyle}
-        >
-          <i className="fas fa-bars text-white"></i>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ml-auto">
-            <div className="hori-selector">
-              <div className="left"></div>
-              <div className="right"></div>
-            </div>
-            {links.map((link) => (
-              <li key={link.to} className={`nav-item ${location.pathname === link.to ? 'active' : ''}`}>
-                <Link className="nav-link" to={link.to}>
-                  <i className={link.icon}></i>
-                  {link.text}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
+    <nav className="navbar navbar-expand-lg navbar-mainbg">
+      <Link className="navbar-brand navbar-logo" to="/">
+        Raqamli Gallereya
+      </Link>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        onClick={updateActiveTabStyle}
+      >
+        <i className="fas fa-bars text-white"></i>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav ml-auto">
+          <div className="hori-selector">
+            <div className="left"></div>
+            <div className="right"></div>
+          </div>
+          {links.map((link) => (
+            <li
+              key={link.to}
+              className={`nav-item ${
+                location.pathname === link.to ? 'active' : ''
+              }`}
+            >
+              <Link className="nav-link" to={link.to}>
+                <i className={link.icon}></i>
+                {link.text}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
   );
 };
 
